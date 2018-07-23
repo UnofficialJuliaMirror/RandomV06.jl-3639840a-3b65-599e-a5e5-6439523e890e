@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/danspielman/RandomV06.jl.svg?branch=master)](https://travis-ci.org/danspielman/RandomV06.jl)
+
 # RandomV06
 
 This is a copy of random.jl from version 0.6 of Julia that has been adapted to run in Julia 0.7.  The file was retrieved from https://github.com/JuliaLang/julia/blob/v0.6.4/base/random.jl, and hacked until it stopped producing errors or warnings in Julia 0.6.
