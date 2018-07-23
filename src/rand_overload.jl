@@ -51,4 +51,5 @@ shuffle!(::Type{Vcur}, args...) = Random.shuffle!(args...)
 randperm(::Type{Vcur}, args...) = Random.randperm(args...)
 randcycle(::Type{Vcur}, args...) = Random.randcycle(args...)
 
+;
 
