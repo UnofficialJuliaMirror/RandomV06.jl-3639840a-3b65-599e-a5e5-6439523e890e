@@ -1,0 +1,8 @@
+language: julia
+julia:
+  - 0.7
+
+script:  
+  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+  - julia -e 'Pkg.clone(pwd()); Pkg.build("RandomV06"); Pkg.test("RandomV06"; coverage=true)'
+  
