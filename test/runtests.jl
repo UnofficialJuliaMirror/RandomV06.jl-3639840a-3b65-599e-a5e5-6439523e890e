@@ -34,6 +34,37 @@ v6.shuffle!(x)
 
 rng = v6.MersenneTwister(0);
 
+V06 = RandomV06.V06
+V07 = RandomV06.V07
 
 
+srand_ver(V06, 1)
+rand_ver(V06, 3)
+randn_ver(V06, 3)
+rand_ver(V06, ["a"; "b"], 3, 4)
+x = ones(4);
+rand_ver!(V06, x)
+randn_ver!(V06, x)
+randexp_ver(V06, 3)
+randexp_ver!(V06, x)
+randstring_ver(V06, 3)
+randperm_ver(V06, 7)
+randcycle_ver(V06, 7)
+shuffle_ver(V06, x)
+shuffle_ver!(V06, x)
+
+srand_ver(V07, 1)
+rand_ver(V07, 3)
+randn_ver(V07, 3)
+rand_ver(V07, ["a"; "b"], 3, 4)
+x = ones(4);
+rand_ver!(V07, x)
+randn_ver!(V07, x)
+randexp_ver(V07, 3)
+randexp_ver!(V07, x)
+randstring_ver(V07, 3)
+randperm_ver(V07, 7)
+randcycle_ver(V07, 7)
+shuffle_ver(V07, x)
+shuffle_ver!(V07, x)
 

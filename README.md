@@ -73,35 +73,29 @@ julia> RandomV06.rand(1:10,3)
 
 
 
-So that you can more easily switch between the versions of functions like `rand` and `srand`, we find it convenient to overloaded these to add an initial argument that chooses the version you want.  Presently, we do this by including the file `src/rand_overload.jl:`
+To facilitate writing code that can use either version, we have created variants of all of the functions in Random that have `_ver` appended.  One can then select the version you want by calling one of these with one of the constants `RandomV06.V06`, `RandomV06.07` or `RandomV06.Vcur` as the first argument.
 
 ~~~julia
-julia> pkgpath = Base.find_package("RandomV06");
+julia> const Vcur = RandomV06.Vcur;
 
-julia> pkgdir = pkgpath[1:findlast(isequal('/'), pkgpath)];
+julia> const V6 = RandomV06.V06;
 
-julia> include(string(pkgdir,"rand_overload.jl"))
-~~~
+julia> srand_ver(V6, 1); 
 
+julia> srand_ver(Vcur, 1);
 
-
- To use version 0.6, the argument should be `V06`.  For version 0.7, it should be `V7`.  Alternatively, `Vcur` can be used to access the current version (in case it changes again in a later version of Julia).
-
-~~~julia
-julia> srand(V06,1); rand(V06, 1:10, 3)
+julia> rand_ver(V6, 1:10, 3)
 3-element Array{Int64,1}:
   9
   7
  10
 
-julia> srand(Vcur,1); rand(Vcur, 1:10, 3)
+julia> rand_ver(Vcur, 1:10, 3)
 3-element Array{Int64,1}:
-  9
-  7
- 10
+ 3
+ 8
+ 2
 ~~~
-
-Of course, the original versions without a prefix of `V06` or `V07` are still available.
 
 
 
