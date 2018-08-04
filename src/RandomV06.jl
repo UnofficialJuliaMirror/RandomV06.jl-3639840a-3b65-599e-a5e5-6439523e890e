@@ -12,7 +12,7 @@ module RandomV06
     include("rand_ver.jl")
 
     export rand_ver,
-        srand_ver,
+        seed_ver!,
         rand_ver!,
         randn_ver,
         randn_ver!,

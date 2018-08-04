@@ -151,7 +151,7 @@ end
 
 @inline rand_ui52_raw_inbounds(r::MersenneTwister) = reinterpret(UInt64, rand_inbounds(r, Close1Open2))
 @inline rand_ui52_raw(r::MersenneTwister) = (reserve_1(r); rand_ui52_raw_inbounds(r))
-@inline rand_ui2x52_raw(r::MersenneTwister) = rand_ui52_raw(r) % UInt128 << 64 | rand_ui52_raw(r)
+@inline rand_ui2x52_raw(r::MersenneTwister) = (rand_ui52_raw(r) % UInt128) << 64 | rand_ui52_raw(r)
 
 function srand(r::MersenneTwister, seed::Vector{UInt32})
     copyto!(resize!(r.seed, length(seed)), seed)
@@ -340,7 +340,7 @@ rand_ui10_raw(r::AbstractRNG)    = rand(r, UInt16)
 rand_ui23_raw(r::AbstractRNG)    = rand(r, UInt32)
 
 rand(r::Union{RandomDevice,MersenneTwister}, ::Type{Float16}) =
-    Float16(reinterpret(Float32, (rand_ui10_raw(r) % UInt32 << 13) & 0x007fe000 | 0x3f800000) - 1)
+    Float16(reinterpret(Float32, ((rand_ui10_raw(r) % UInt32) << 13) & 0x007fe000 | 0x3f800000) - 1)
 
 rand(r::Union{RandomDevice,MersenneTwister}, ::Type{Float32}) =
     reinterpret(Float32, rand_ui23_raw(r) % UInt32 & 0x007fffff | 0x3f800000) - 1
@@ -362,8 +362,8 @@ end
 
 function rand(r::MersenneTwister, ::Type{UInt128})
     reserve(r, 3)
-    xor(rand_ui52_raw_inbounds(r) % UInt128 << 96,
-        rand_ui52_raw_inbounds(r) % UInt128 << 48,
+    xor((rand_ui52_raw_inbounds(r) % UInt128) << 96,
+        (rand_ui52_raw_inbounds(r) % UInt128) << 48,
         rand_ui52_raw_inbounds(r))
 end
 
@@ -1591,7 +1591,7 @@ large.) Technically, this process is known as "Bernoulli sampling" of `A`.
 randsubseq(A::AbstractArray, p::Real) = randsubseq(GLOBAL_RNG, A, p)
 
 "Return a random `Int` (masked with `mask`) in ``[0, n)``, when `n <= 2^52`."
-@inline function rand_lt(r::AbstractRNG, n::Int, mask::Int=nextpow2(n)-1)
+@inline function rand_lt(r::AbstractRNG, n::Int, mask::Int=nextpow(2,n)-1)
     # this duplicates the functionality of RangeGenerator objects,
     # to optimize this special case
     while true
@@ -1634,7 +1634,7 @@ julia> shuffle!(rng, collect(1:16))
 function shuffle!(r::AbstractRNG, a::AbstractVector)
     n = length(a)
     @assert n <= Int64(2)^52
-    mask = nextpow2(n) - 1
+    mask = nextpow(2,n) - 1
     for i = n:-1:2
         (mask >> 1) == i && (mask >>= 1)
         j = 1 + rand_lt(r, i, mask)
