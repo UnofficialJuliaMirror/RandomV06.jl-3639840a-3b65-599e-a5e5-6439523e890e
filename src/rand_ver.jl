@@ -19,7 +19,7 @@ randperm, randcycle
 #import Random
 
 rand_ver(::Type{V06}, args...) = RandomV06.rand(args...)
-srand_ver(::Type{V06}, args...) = RandomV06.srand(args...)
+seed_ver!(::Type{V06}, args...) = RandomV06.srand(args...)
 rand_ver!(::Type{V06}, args...) = RandomV06.rand!(args...)
 randn_ver(::Type{V06}, args...) = RandomV06.randn(args...)
 randn_ver!(::Type{V06}, args...) = RandomV06.randn!(args...)
@@ -34,7 +34,7 @@ shuffle_ver!(::Type{V06}, args...) = RandomV06.shuffle!(args...)
 randperm_ver(::Type{V06}, args...) = RandomV06.randperm(args...)
 randcycle_ver(::Type{V06}, args...) = RandomV06.randcycle(args...)
 
-srand_ver(::Type{Vcur}, args...) = Random.srand(args...)
+seed_ver!(::Type{Vcur}, args...) = Random.seed!(args...)
 rand_ver(::Type{Vcur}, args...) = Random.rand(args...)
 rand_ver!(::Type{Vcur}, args...) = Random.rand!(args...)
 randn_ver(::Type{Vcur}, args...) = Random.randn(args...)

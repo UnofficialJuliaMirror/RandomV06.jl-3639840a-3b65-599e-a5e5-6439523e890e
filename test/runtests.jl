@@ -38,7 +38,7 @@ V06 = RandomV06.V06
 V07 = RandomV06.V07
 
 
-srand_ver(V06, 1)
+seed_ver!(V06, 1)
 rand_ver(V06, 3)
 randn_ver(V06, 3)
 rand_ver(V06, ["a"; "b"], 3, 4)
@@ -53,7 +53,7 @@ randcycle_ver(V06, 7)
 shuffle_ver(V06, x)
 shuffle_ver!(V06, x)
 
-srand_ver(V07, 1)
+seed_ver!(V07, 1)
 rand_ver(V07, 3)
 randn_ver(V07, 3)
 rand_ver(V07, ["a"; "b"], 3, 4)
